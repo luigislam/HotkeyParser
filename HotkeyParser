@@ -1,0 +1,32 @@
+Fn_HotkeyParser(ParamHotkey:=A_ThisHotkey){
+    If RegExMatch(ParamHotkey, "Ji)^(?<ModifierSymbols>[~!#$^<>*+]*)?(?<Key>\S+)(?<Up>[\t ]+Up)?$", &MatchObj){
+        MatchObj.Hotkey:= ParamHotkey
+        MatchObj.Type := 1
+        MatchObj.ModifierKeyNamesArray := Create_ModifierKeyNamesArray(MatchObj.ModifierSymbols)
+        Return MatchObj
+    }
+    Else If RegExMatch(ParamHotkey, "Ji)^(?<ModifierSymbolsL>~)?(?:(?<KeyL>\S)|(?<KeyL>\w+))(?:[\t ]+&[\t ]+)(?<ModifierSymbolsR>~)?(?:(?<KeyR>\S)|(?<KeyR>\w+))(?<Up>[\t ]+Up)?$", &MatchObj){
+        MatchObj.Hotkey:= ParamHotkey
+        MatchObj.Type := 2
+        Return MatchObj
+    }
+    else {
+        Throw "Error: Somehow failed to RegExMatch your Hotkey?"
+    }
+
+    Create_ModifierKeyNamesArray(ModifierSymbols){
+        ReturnArr := []
+        LR := ""
+        For Index, Symbol in StrSplit(ModifierSymbols){
+            Switch Symbol {
+                Case "<": LR := "L"
+                Case ">": LR := "R"
+                Case "#": ReturnArr.Push(LR "Win"), LR := ""
+                Case "+": ReturnArr.Push(LR "Shift"), LR := ""
+                Case "^": ReturnArr.Push(LR "Ctrl"), LR := ""
+                Case "!": ReturnArr.Push(LR "Alt"), LR := ""
+            }
+        }
+        Return ReturnArr
+    }
+}
