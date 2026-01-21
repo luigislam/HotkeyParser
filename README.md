@@ -2,7 +2,6 @@
 Parses the Hotkey if you want to only grab the Key, Modifiers, or get the full key names of the Modifier Keys
 ### What it simply does
 Returns an Object containing Properties obtained by parsing your Hotkey that was plugged into the Function (defaults to A_ThisHotkey if parameter is omitted)
-Note: It does not confirm if the Hotkey is valid but it should work fine as long as you don't somehow plug in incorrect Hotkeys.
 ### Examples of use-cases
 1. Parsing the Hotkey to see what the Modifier and the Key is.
 ```ahk
