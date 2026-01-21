@@ -46,7 +46,7 @@ F1::{ ; Hotkey is F1
     }
 }
 ```
-4. Being able to ignore all the modifier keys and only get the name of the Key so we can do whatever we want with it like KeyWait.
+4. Using a single hotkey function for multiple hotkeys that have different modifiers.
 ```ahk
 1:: ; Hotkey is 1
 ~2:: ; Hotkey is 2
